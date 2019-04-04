@@ -1,0 +1,73 @@
+{
+  "extends": ["airbnb-base", "prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "globalReturn": false
+    }
+  },
+  "globals": {
+    "browser": true,
+    "$": true,
+    "$$": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "global-require": 0,
+    "eslint linebreak-style": [0, "error", "windows"],
+    "prefer-arrow-callback": 0,
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTernary": true
+      }
+    ],
+    "no-nested-ternary": 0,
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "no-empty": "error",
+    "no-undef": "error",
+    "class-methods-use-this": 0,
+    "func-names": 0,
+    "comma-dangle": 0,
+    "max-len": 0,
+    "no-console": 0,
+    "no-param-reassign": 0,
+    "new-cap": 0,
+    "array-callback-return": 0,
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 120
+      }
+    ]
+  },
+  "plugins": ["prettier"]
+}
