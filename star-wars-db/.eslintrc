@@ -37,7 +37,6 @@
     "import/prefer-default-export": "off",
     "import/extensions": "off",
     "no-empty": "error",
-    "no-undef": "error",
     "class-methods-use-this": 0,
     "func-names": 0,
     "comma-dangle": 0,
