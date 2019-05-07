@@ -8,7 +8,7 @@ export default class PersonDetails extends Component {
   swapiService = new SwapiService();
   state = {
     person: null,
-    loadingPerson: this.props.isReloadingPerson || true,
+    loadingPerson: true,
     error: false
   };
 
@@ -17,13 +17,13 @@ export default class PersonDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId === prevProps.personId) {
+    if (this.props.personId !== prevProps.personId) {
       this.updatePerson();
     }
   }
 
   onPersonLoaded = person => {
-    this.setState({ person, loadingPerson: false});
+    this.setState({ person, loadingPerson: false });
   };
 
   onError = () => {
@@ -31,10 +31,15 @@ export default class PersonDetails extends Component {
   };
 
   updatePerson() {
-    const { personId} = this.props;
+    const { personId } = this.props;
     if (!personId) {
       return;
     }
+    
+    this.setState({
+      loadingPerson: true
+    });
+
     this.swapiService
       .getPerson(personId)
       .then(this.onPersonLoaded)
@@ -43,7 +48,7 @@ export default class PersonDetails extends Component {
 
   render() {
     const { person, loadingPerson, error } = this.state;
-    const hasDate = !(loadingPerson || error );
+    const hasDate = !(loadingPerson || error);
     const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loadingPerson ? <Spinner /> : null;
     const content = hasDate ? <PersonView person={person} /> : null;
@@ -68,7 +73,6 @@ const PersonView = ({ person }) => {
         alt="person"
         src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
       />
-
       <div className="card-body">
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
