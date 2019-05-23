@@ -1,31 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import ItemList from "../item-list";
+import PersonDetails from "../person-details";
+import ErrorIndicator from "../error-indicator";
+import ErrorButton from "../error-button";
 
-import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
-import ErrorIndicator from '../error-indicator/error-indicator';
-
-import './people-page.css';
+import "./people-page.css";
 
 export default class PeoplePage extends Component {
-
   state = {
     selectedPerson: 3,
     hasError: false
   };
 
   componentDidCatch(error, info) {
-
     this.setState({
       hasError: true
     });
   }
 
-  onPersonSelected = (selectedPerson) => {
+  onPersonSelected = selectedPerson => {
     this.setState({ selectedPerson });
   };
 
   render() {
-
     if (this.state.hasError) {
       return <ErrorIndicator />;
     }
