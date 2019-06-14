@@ -63,6 +63,9 @@ export default class ItemDetails extends Component {
 
   render() {
     const { item, image, loadingItem, error } = this.state;
+    if (!item) {
+      return <span>Select a item from a list</span>;
+    }
     const hasDate = !(loadingItem || error);
     const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loadingItem ? <Spinner /> : null;
