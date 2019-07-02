@@ -1,17 +1,11 @@
-import React, { Component } from "react";
-
-import ErrorBoundry from "../error-boundry";
+import React from "react";
 
 import "./app.css";
+import { withBookstoreService } from "../hoc";
 
-export default class App extends Component {
-
-  render() {
-
-    return (
-      <ErrorBoundry>
-        <h1>Hello</h1>
-      </ErrorBoundry>
-    );
-  }
-}
+const App = ({ bookstoreService }) => {
+  console.log(bookstoreService.getBooks());
+  
+  return <h1>Hello</h1>;
+};
+export default withBookstoreService()(App);
