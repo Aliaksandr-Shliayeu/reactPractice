@@ -31,4 +31,6 @@
 }
 .book-list-item {
   width: 400px;
+  justify-content: stretch;
+
 }
