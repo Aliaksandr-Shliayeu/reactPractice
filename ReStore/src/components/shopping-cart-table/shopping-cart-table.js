@@ -1,6 +1,4 @@
 import React from "react";
-import { withBookstoreService } from "../hoc";
-import { compose } from "../../utils";
 import { connect } from "react-redux";
 import "./shopping-cart-table.css";
 
@@ -15,31 +13,25 @@ const ShoppingCartTable = ({
     const { id, name, count, total } = item;
     return (
       <tr key={id}>
-        <td>{idx}</td>
+        <td>{idx + 1}</td>
         <td>{name}</td>
         <td>{count}</td>
         <td>${total}</td>
         <td>
           <button
-            onClick={() => {
-              onDecrease(id);
-            }}
+            onClick={() => onDelete(id)}
             className="btn btn-outline-danger btn-sm float-right"
           >
             <i className="fa fa-trash-o" />
           </button>
           <button
-            onClick={() => {
-              onIncrease(id);
-            }}
+            onClick={() => onIncrease(id)}
             className="btn btn-outline-success btn-sm float-right"
           >
             <i className="fa fa-plus-circle" />
           </button>
           <button
-            onClick={() => {
-              onDelete(id);
-            }}
+            onClick={() => onDecrease(id)}
             className="btn btn-outline-warning btn-sm float-right"
           >
             <i className="fa fa-minus-circle" />
@@ -62,6 +54,7 @@ const ShoppingCartTable = ({
             <th>Action</th>
           </tr>
         </thead>
+
         <tbody>{items.map(renderRow)}</tbody>
       </table>
 
@@ -70,28 +63,30 @@ const ShoppingCartTable = ({
   );
 };
 
-const mapStateToProps = ({ cartItem, orderTotal }) => {
-  return { items: cartItem, total: orderTotal };
+const mapStateToProps = ({ cartItems, orderTotal }) => {
+  return {
+    items: cartItems,
+    total: orderTotal
+  };
 };
 
 const mapDispatchToProps = () => {
   return {
     onIncrease: id => {
-      console.log(`increase`);
+      console.log(`Increase ${id}`);
     },
+
     onDecrease: id => {
-      console.log(`decrease`);
+      console.log(`Decrease ${id}`);
     },
+
     onDelete: id => {
-      console.log(`delete`);
+      console.log(`Delete ${id}`);
     }
   };
 };
 
-export default compose(
-  withBookstoreService(),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(ShoppingCartTable);
