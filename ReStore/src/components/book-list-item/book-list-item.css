@@ -1,6 +1,7 @@
 .book-list-item {
   display: flex;
   margin: 15px 0;
+  min-width: 300px;
 }
 
 .book-list-item .book-cover {
@@ -27,4 +28,7 @@
 
 .book-list-item .book-details .book-price {
   font-size: 1.4rem;
+}
+.book-list-item {
+  width: 400px;
 }
