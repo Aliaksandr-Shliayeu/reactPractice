@@ -1,21 +1,22 @@
 const initialState = {
   books: [],
   isLoading: true,
-  error: null
+  error: null,
+  cartItems: [
+    { id: 1, name: "Book 1", count: 3, total: 150 },
+    { id: 2, name: "Book 2", count: 1, total: 70 }
+  ],
+  orderTotal: 220
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_BOOKS_REQUEST":
-      return { books: [], isLoading: true, error: null };
+      return { ...state, books: [], isLoading: true, error: null };
     case "FETCH_BOOKS_SUCCESS":
-      return {
-        books: action.payload,
-        isLoading: false,
-        error: null
-      };
+      return { ...state, books: action.payload, isLoading: false, error: null };
     case "FETCH_BOOKS_FAILURE":
-      return { books: [], isLoading: false, error: action.payload };
+      return { ...state, books: [], isLoading: false, error: action.payload };
 
     default:
       return state;

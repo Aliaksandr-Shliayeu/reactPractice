@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import BookListItem from "../book-list-item";
 import { connect } from "react-redux";
 import Spinner from "../spinner";
-import { withBookstoreService } from "../hoc";
 import { fetchBooks } from "../../actions";
+import { withBookstoreService } from "../hoc";
 import { compose } from "../../utils";
 import ErrorIndicator from "../error-indicator";
 
