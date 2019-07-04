@@ -1,0 +1,14 @@
+.error-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.error-indicator-image {
+  width: 150px;
+  height: 150px;
+}
+.error-indicator-text {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 4rem;
+}
