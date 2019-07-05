@@ -1,40 +1,48 @@
-import React, { Component, Fragment } from "react";
-import BookListItem from "../book-list-item";
-import { connect } from "react-redux";
-import Spinner from "../spinner";
-import { fetchBooks, bookAddedToCart } from "../../actions";
-import { withBookstoreService } from "../hoc";
-import { compose } from "../../utils";
-import ErrorIndicator from "../error-indicator";
+import React, { Component, Fragment } from 'react';
+import BookListItem from '../book-list-item';
 
-import "./book-list.css";
+import { connect } from 'react-redux';
+
+import { withBookstoreService } from '../hoc';
+import { fetchBooks, bookAddedToCart } from '../../actions';
+import { compose } from '../../utils';
+
+import Spinner from '../spinner';
+import ErrorIndicator from '../error-indicator';
+
+import './book-list.css';
 
 const BookList = ({ books, onAddedToCart }) => {
   return (
     <ul className="book-list">
-      {books.map(book => {
-        return (
-          <li key={book.id}>
-            <BookListItem
-              book={book}
-              onAddedToCart={() => {
-                onAddedToCart(book.id);
-              }}
-            />
-          </li>
-        );
-      })}
+      {
+        books.map((book) => {
+          return (
+            <li key={book.id}>
+              <BookListItem
+                book={book}
+                onAddedToCart={() => onAddedToCart(book.id)}/>
+            </li>
+          );
+        })
+      }
     </ul>
   );
 };
 
 class BookListContainer extends Component {
+
   componentDidMount() {
     this.props.fetchBooks();
   }
 
   render() {
-    const { books, isLoading, error, onAddedToCart } = this.props;
+    const { books, loading, error, onAddedToCart } = this.props;
+
+    if (loading) {
+      return <Spinner />;
+    }
+
     if (error) {
       return (
         <Fragment>
@@ -42,7 +50,7 @@ class BookListContainer extends Component {
         </Fragment>
       );
     }
-    if (isLoading) {
+    if (loading) {
       return (
         <Fragment>
           <Spinner />
@@ -50,25 +58,24 @@ class BookListContainer extends Component {
         </Fragment>
       );
     }
-    return <BookList books={books} onAddedToCart={onAddedToCart} />;
+
+    return <BookList books={books} onAddedToCart={onAddedToCart}/>;
   }
 }
 
-const mapStateToProps = ({ books, isLoading, error }) => {
-  return { books, isLoading, error };
+const mapStateToProps = ({ bookList: { books, loading, error }}) => {
+  return { books, loading, error };
 };
 
 const mapDispatchToProps = (dispatch, { bookstoreService }) => {
+
   return {
     fetchBooks: fetchBooks(bookstoreService, dispatch),
-    onAddedToCart: id => dispatch(bookAddedToCart(id))
+    onAddedToCart: (id) => dispatch(bookAddedToCart(id))
   };
 };
 
 export default compose(
   withBookstoreService(),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect(mapStateToProps, mapDispatchToProps)
 )(BookListContainer);
